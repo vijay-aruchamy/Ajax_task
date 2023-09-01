@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        vijay
+    </title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="left">
+            <img src="image sample.png" width="100%" height="100%">
+        </div>
+        <div id="successbox">
+            <img src="login.png" id="loginimage">
+            <button onclick="closesucessbox()"><i class="fa fa-close" style="font-size:24px"
+                    id="closebutton"></i></button>
+        </div>
+        <div id="successbox1">
+            <img src="signup.jpg" id="signupimage">
+            <button onclick="closesucessbox1()"><i class="fa fa-close" style="font-size:24px"
+                    id="closebutton"></i></button>
+        </div>
+        <div class="right">
+            <h1 id="signin">Login Page</h1>
+            <h1 id="signup1">Create an account</h1>
+            <h3>Let's go started with your 30 day free trail</h3>
+            <form action="submit" method="post" id="form">
+                <div>
+                    <label>UserName</label><br>
+                    <input type="text" placeholder="Enter your Name" onchange="getname(event)" oninput="namechange()"
+                        id="nameinput">
+                    <p id="Usernone">username should not be empty</p>
+                    <p id="validuser"> userName already Exists</p>
+                </div>
+                
+                <div class="passwordform">
+                    <div class="password">
+                        <label>Password</label><br>
+                        <div class="hoverEffect1">
+                            <div style="display: flex;">
+                                <i class="fa fa-info-circle" id="info2"></i>
+                                <p id="passwarning">*Password should contain atleast 6 character</p>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="password" placeholder="******" oninput="passwordchange()" onchange="getpass(event)"
+                        id="passwordinput">
+                    <p id="passwordnone">password should not be empty</p>
+                    <p id="passwordwrong">password is wrong</p>
+                    <p id="validpassword"> please enter valid password</p>
+                    <p id="warning">Not a user want to signup..... </p>
+                </div>
+                <button type="submit" onclick="Validate(event)" class="button" id="buttonlogin">Log In</button>
+            </form>
+
+          
+        </div>
+    </div>
+    <script>
+        let details = {
+            name: "",
+            password1: "",
+            email1: ""
+
+        }
+        function getname(event) {
+            details.name = event.target.value;
+        }
+        function getemail(event) {
+            details.email1 = event.target.value;
+        }
+        function getpass(event) {
+            details.password1 = event.target.value;
+        }
+        let warning = document.getElementById("warning");
+        let emailnone = document.getElementById("emailnone");
+        let passwordnone = document.getElementById("passwordnone");
+        let Usernone = document.getElementById("Usernone");
+        let validemail = document.getElementById("validemail");
+        let validpassword = document.getElementById("validpassword");
+
+        let logindetails = [
+            {
+                userName:"vijay",
+                password:"1234567"
+            }
+        ]
+        
+        function Validate(event) {
+            event.preventDefault();
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
+            let condition = true;
+            if (details.name == "") {
+                Usernone.style.display = "block";
+                condition = false;
+            }
+            if (details.password1 == "") {
+                passwordnone.style.display = "block";
+                condition = false;
+            }
+            if (condition) {
+                let emailpass = 0;
+                for (let x of logindetails) {
+                    if (x.userName == details.name && x.password == details.password1) {
+                        document.getElementById("successbox").style.display = "block";
+                        loaddata();
+                        emailpass++;
+                        break
+                    }
+                   
+                }
+                if (emailpass == 0)
+                document.getElementById("passwordwrong").style.display = "block";
+            }
+
+        }
+        function namechange() {
+            warning.style.display = "none";
+            Usernone.style.display = "none";
+            document.getElementById("validuser").style.display = "none";
+        }
+        function emailchange() {
+            warning.style.display = "none";
+            emailnone.style.display = "none";
+            validemail.style.display = "none";
+        }
+        function passwordchange() {
+            warning.style.display = "none";
+            passwordnone.style.display = "none";
+            validpassword.style.display = "none";
+            document.getElementById("passwordwrong").style.display = "none";
+        }
+        function closesucessbox() {
+
+            document.getElementById("successbox").style.display = "none";
+        }
+       
+
+        function loaddata() {
+                let obj = new XMLHttpRequest();
+                obj.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        let responsevalue = this.responseText;
+                        localStorage.setItem('responsekey', responsevalue);
+                        window.location.href = 'index1.html';                    }
+                    };
+                obj.open("GET", "https://jsonplaceholder.typicode.com/todos/", true);
+                obj.send();
+            }
+        
+    </script>
+</body>
+
+</html>
