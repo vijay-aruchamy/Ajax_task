@@ -6,6 +6,7 @@
         vijay
     </title>
     <link rel="stylesheet" href="style.css">
+    <script src="ajax.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap" rel="stylesheet">
@@ -36,7 +37,7 @@
             <form action="submit" method="post" id="form">
                 <div>
                     <label>UserName</label><br>
-                    <input type="text" placeholder="Enter your Name" onchange="getname(event)" oninput="namechange()"
+                    <input type="text" placeholder="Enter your Name" oninput="namechange()" onchange="getname(event)" 
                         id="nameinput">
                     <p id="Usernone">username should not be empty</p>
                 </div>
@@ -62,21 +63,26 @@
         </div>
     </div>
     <script>
+       
         let details = {
             name: "",
             password1: "",
             email1: ""
 
         }
+
         function getname(event) {
             details.name = event.target.value;
+            console.log("enteringg")
         }
         function getemail(event) {
             details.email1 = event.target.value;
         }
         function getpass(event) {
             details.password1 = event.target.value;
+            console.log("hellooooooooooo");
         }
+
         let warning = document.getElementById("warning");
         let emailnone = document.getElementById("emailnone");
         let passwordnone = document.getElementById("passwordnone");
@@ -91,7 +97,7 @@
 
         function Validate(event) {
             event.preventDefault();
-            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
+              console.log(details.name);
             let condition = true;
             if (details.name == "") {
                 Usernone.style.display = "block";
@@ -107,6 +113,7 @@
                     if (x.userName == details.name && x.password == details.password1) {
                         document.getElementById("successbox").style.display = "block";
                         loaddata();
+                        window.location.href = 'index1.html';
                         emailpass++;
                         break
                     }
@@ -131,21 +138,7 @@
 
             document.getElementById("successbox").style.display = "none";
         }
-        function loaddata() {
-            let obj = new XMLHttpRequest();
-            console.log("hii");
-            obj.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    localStorage.setItem('responsekey', this.responseText);
-
-                    window.location.href = 'index1.html';
-                }
-            };
-            obj.open("GET", "https://jsonplaceholder.typicode.com/todos/", true);
-            obj.send();
-
-        }
-
+       
     </script>
 </body>
 
