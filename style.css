@@ -29,21 +29,13 @@ body {
 }
 
 .button {
-    padding-left: 42px;
-    padding-right: 42px;
+   
     padding-top: 5px;
     padding-bottom: 5px;
-    width: 50%;
-    margin-bottom: 20px;
+    margin-left: 40px;
+    
 }
 
-.button1 {
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    width: 50%;
-}
 
 .para {
     font-size: 10px;

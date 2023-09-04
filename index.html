@@ -39,7 +39,6 @@
                     <input type="text" placeholder="Enter your Name" onchange="getname(event)" oninput="namechange()"
                         id="nameinput">
                     <p id="Usernone">username should not be empty</p>
-                    <p id="validuser"> userName already Exists</p>
                 </div>
 
                 <div class="passwordform">
@@ -48,7 +47,6 @@
                         <div class="hoverEffect1">
                             <div style="display: flex;">
                                 <i class="fa fa-info-circle" id="info2"></i>
-                                <p id="passwarning">*Password should contain atleast 6 character</p>
                             </div>
                         </div>
                     </div>
@@ -56,8 +54,6 @@
                         id="passwordinput">
                     <p id="passwordnone">password should not be empty</p>
                     <p id="passwordwrong">password is wrong</p>
-                    <p id="validpassword"> please enter valid password</p>
-                    <p id="warning">Not a user want to signup..... </p>
                 </div>
                 <button type="submit" onclick="Validate(event)" class="button" id="buttonlogin">Log In</button>
             </form>
@@ -85,8 +81,6 @@
         let emailnone = document.getElementById("emailnone");
         let passwordnone = document.getElementById("passwordnone");
         let Usernone = document.getElementById("Usernone");
-        let validemail = document.getElementById("validemail");
-        let validpassword = document.getElementById("validpassword");
 
         let logindetails = [
             {
@@ -122,19 +116,15 @@
             }
         }
         function namechange() {
-            warning.style.display = "none";
+
             Usernone.style.display = "none";
-            document.getElementById("validuser").style.display = "none";
         }
         function emailchange() {
-            warning.style.display = "none";
+
             emailnone.style.display = "none";
-            validemail.style.display = "none";
         }
         function passwordchange() {
-            warning.style.display = "none";
             passwordnone.style.display = "none";
-            validpassword.style.display = "none";
             document.getElementById("passwordwrong").style.display = "none";
         }
         function closesucessbox() {
