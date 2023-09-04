@@ -9,19 +9,23 @@
     <link rel="stylesheet" href="style1.css">
 </head>
 
-<body onload="loaddata()">
-    
+<body >
+    <div class="heading">
+    <h2 style="color:  rgb(12, 78, 116);">Employee Details</h2>
     <button class="clrbutton" onclick="clear1()">Clear</button>
-    <table id="table" onload="loaddata()">
+    </div>
+    <div class="tablediv">
+    <table  onload="loaddata()">
         <tr >
-            <th>UserID</th>
+           
             <th>ID</th>
             <th>Title</th>
             <th>Status</th>
+            <th>Changes</th>
         </tr>
-        <tbody id="displayvalue"></tbody>
+        <tbody id="displayvalue" ></tbody>
     </table>
-
+     <\
     <script>
         loaddata();
         let tableBody = document.getElementById("displayvalue");
@@ -38,13 +42,6 @@
                     item.id = id.textContent;
                     updateLocalStorage(responsevalue);
                 });
-                let userid = document.createElement('td')
-                userid.textContent = item.userId;
-                userid.setAttribute('contenteditable', 'true');
-                userid.addEventListener('input', function () {
-                    item.userid = userid.textContent;
-                    updateLocalStorage(responsevalue);
-                });
                 let title = document.createElement('td')
                 title.textContent = item.title;
                 title.setAttribute('contenteditable', 'true');
@@ -59,11 +56,28 @@
                     item.completed = status.textContent;
                     updateLocalStorage(responsevalue);
                 });
+                let editbutton =document.createElement('button');
+                editbutton.textContent="Edit";
+                editbutton.className="editbutton";
 
-                row.appendChild(userid);
+                let deletebutton =document.createElement('button');
+                deletebutton.textContent="Delete";
+                deletebutton.className="deletebutton";
+                
+                let br =document.createElement('br');
+                let br1 =document.createElement('br');
+                let buttons=document.createElement('td');
+
+ 
                 row.appendChild(id);
                 row.appendChild(title);
                 row.appendChild(status);
+                buttons.appendChild(editbutton);
+                buttons.appendChild(br);
+                buttons.appendChild(br1);
+                buttons.appendChild(deletebutton)
+                row.appendChild(buttons);
+
 
                 tableBody.appendChild(row);
             }
@@ -76,7 +90,7 @@
         function clear1() {
             localStorage.clear();
             responsevalue = "";
-            document.getElementById("table").style.display="none";
+            document.getElementById("displayvalue").style.display="none";
         }
 
     </script>
