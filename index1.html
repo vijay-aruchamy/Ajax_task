@@ -1,19 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            border: 1px solid #ddd;
+            width: 100%;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        td,
+        th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
 </head>
+
 <body>
-    <p id="displayvalue"></p>
+    <table >
+        <tr>
+            <th>UserID</th>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Status</th>
+        </tr>
+        <tbody id="displayvalue" ></tbody>
+    </table>
 
     <script>
+        let tableBody = document.getElementById("displayvalue");
         if (localStorage.getItem('responsekey')) {
-            var storedData = localStorage.getItem('responsekey');
-            document.getElementById("displayvalue").innerHTML = storedData;
+            let responsevalue = JSON.parse(localStorage.getItem('responsekey'));
+            for (let item of responsevalue) {
+                let row = document.createElement('tr')
+                let id = document.createElement('td')
+                id.textContent = item.id;
+                id.setAttribute('contenteditable','true');
+                id.addEventListener('input', function() {
+                 item.id = id.textContent;
+                    updateLocalStorage(responsevalue);
+                });
+                let userid = document.createElement('td')
+                userid.textContent = item.userId; 
+                userid.setAttribute('contenteditable','true');
+                userid.addEventListener('input', function() {
+                 item.userid = userid.textContent;
+                    updateLocalStorage(responsevalue);
+                });
+                let title = document.createElement('td')
+                title.textContent = item.title;
+                title.setAttribute('contenteditable','true');
+                title.addEventListener('input', function() {
+                 item.title = title.textContent;
+                    updateLocalStorage(responsevalue);
+                });
+                let status = document.createElement('td')
+                status.textContent = item.completed;
+                status.setAttribute('contenteditable','true');
+                status.addEventListener('input', function() {
+                 item.completed = status.textContent;
+                    updateLocalStorage(responsevalue);
+                });
+
+                row.appendChild(userid);
+                row.appendChild(id);
+                row.appendChild(title);
+                row.appendChild(status);
+
+                tableBody.appendChild(row);
+            }
+           function updateLocalStorage(data)
+            {
+                localStorage.setItem('responsekey',JSON.stringify(data));
+                console.log(responsevalue);
+            }
         }
 
     </script>
 </body>
+
 </html>

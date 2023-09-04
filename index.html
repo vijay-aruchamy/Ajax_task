@@ -41,7 +41,7 @@
                     <p id="Usernone">username should not be empty</p>
                     <p id="validuser"> userName already Exists</p>
                 </div>
-                
+
                 <div class="passwordform">
                     <div class="password">
                         <label>Password</label><br>
@@ -62,7 +62,7 @@
                 <button type="submit" onclick="Validate(event)" class="button" id="buttonlogin">Log In</button>
             </form>
 
-          
+
         </div>
     </div>
     <script>
@@ -90,11 +90,11 @@
 
         let logindetails = [
             {
-                userName:"vijay",
-                password:"1234567"
+                userName: "vijay",
+                password: "1234567"
             }
         ]
-        
+
         function Validate(event) {
             event.preventDefault();
             const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
@@ -116,12 +116,10 @@
                         emailpass++;
                         break
                     }
-                   
                 }
                 if (emailpass == 0)
-                document.getElementById("passwordwrong").style.display = "block";
+                    document.getElementById("passwordwrong").style.display = "block";
             }
-
         }
         function namechange() {
             warning.style.display = "none";
@@ -143,20 +141,21 @@
 
             document.getElementById("successbox").style.display = "none";
         }
-       
-
         function loaddata() {
-                let obj = new XMLHttpRequest();
-                obj.onreadystatechange = function () {
-                    if (this.readyState == 4 && this.status == 200) {
-                        let responsevalue = this.responseText;
-                        localStorage.setItem('responsekey', responsevalue);
-                        window.location.href = 'index1.html';                    }
-                    };
-                obj.open("GET", "https://jsonplaceholder.typicode.com/todos/", true);
-                obj.send();
-            }
-        
+            let obj = new XMLHttpRequest();
+            console.log("hii");
+            obj.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    localStorage.setItem('responsekey', this.responseText);
+
+                    window.location.href = 'index1.html';
+                }
+            };
+            obj.open("GET", "https://jsonplaceholder.typicode.com/todos/", true);
+            obj.send();
+
+        }
+
     </script>
 </body>
 
