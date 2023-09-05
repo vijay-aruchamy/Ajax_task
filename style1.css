@@ -5,23 +5,22 @@ table {
     width: 80%;
     position: absolute;
 }
-.tablediv
-{
+
+.tablediv {
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
 }
-h2
-{
-  
+
+h2 {
+
     margin: 0;
 }
-th{
-    color: white;
-}
-.heading
-{
+
+th {}
+
+.heading {
     padding-top: 15px;
     padding-bottom: 15px;
     display: flex;
@@ -33,16 +32,17 @@ th{
 
 th {
     background-color: rgb(12, 78, 116);
+    color: white;
 }
 
 td,
 th {
     border: 1px solid #ddd;
     padding: 8px;
-    text-align: left;
+    text-align: center;
 }
-.clrbutton
-{
+
+.clrbutton {
     height: max-content;
     background-color: #1e9ad2;
     border-color: #ddd;
@@ -52,8 +52,8 @@ th {
     padding-top: 5px;
     padding-bottom: 5px;
 }
-.editbutton
-{
+
+.editbutton {
     background-color: #1e9ad2;
     border-color: #ddd;
     padding-right: 15px;
@@ -61,16 +61,16 @@ th {
     padding-top: 5px;
     padding-bottom: 5px;
 }
-.deletebutton
-{
+
+.deletebutton {
     background-color: #1e9ad2;
     border-color: #ddd;
     padding-right: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
-  
+
 }
-#empty
-{
+
+#empty {
     display: none;
 }

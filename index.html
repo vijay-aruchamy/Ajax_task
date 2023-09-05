@@ -32,13 +32,11 @@
         </div>
         <div class="right">
             <h1 id="signin">Login Page</h1>
-            <h1 id="signup1">Create an account</h1>
-            <h3>Let's go started with your 30 day free trail</h3>
+            <p>Let's go started with your 30 day free trail</p>
             <form action="submit" method="post" id="form">
                 <div>
                     <label>UserName</label><br>
-                    <input type="text" placeholder="Enter your Name" oninput="namechange()" onchange="getname(event)" 
-                        id="nameinput">
+                    <input type="text" oninput="namechange()" onchange="getname(event)" id="nameinput">
                     <p id="Usernone">username should not be empty</p>
                 </div>
 
@@ -51,19 +49,18 @@
                             </div>
                         </div>
                     </div>
-                    <input type="password" placeholder="******" oninput="passwordchange()" onchange="getpass(event)"
-                        id="passwordinput">
+                    <input type="password" oninput="passwordchange()" onchange="getpass(event)" id="passwordinput">
                     <p id="passwordnone">password should not be empty</p>
                     <p id="passwordwrong">password is wrong</p>
                 </div>
-                <button type="submit" onclick="Validate(event)" class="button" id="buttonlogin">Log In</button>
+                <button type="submit" onclick="Validate(event)" class="button-40" id="buttonlogin">Log In</button>
             </form>
 
 
         </div>
     </div>
     <script>
-       
+
         let details = {
             name: "",
             password1: "",
@@ -97,7 +94,7 @@
 
         function Validate(event) {
             event.preventDefault();
-              console.log(details.name);
+            console.log(details.name);
             let condition = true;
             if (details.name == "") {
                 Usernone.style.display = "block";
@@ -138,7 +135,7 @@
 
             document.getElementById("successbox").style.display = "none";
         }
-       
+
     </script>
 </body>
 

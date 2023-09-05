@@ -9,102 +9,99 @@
     <link rel="stylesheet" href="style1.css">
 </head>
 
-<body >
+<body>
     <div class="heading">
-    <h2 style="color:  rgb(12, 78, 116);">Employee Details</h2>
-    <div style="float: right;">
-    <button class="clrbutton" onclick="clear1()">Clear</button>
-    </div>
+        <h2 style="color:  rgb(12, 78, 116);">Employee Details</h2>
+        <div style="float: right;">
+            <button class="clrbutton" onclick="clear1()">Clear</button>
+        </div>
     </div>
     <div class="tablediv">
         <img src="empty.png" id="empty">
-    <table >
-        <tr >
-           
-            <th>ID</th>
-            <th>Title</th>
-            <th>Status</th>
-            <th>Changes</th>
-        </tr>
-        <tbody id="displayvalue" ></tbody>
-    </table>
+        <table>
+            <tr>
+
+                <th>ID</th>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Changes</th>
+            </tr>
+            <tbody id="displayvalue"></tbody>
+        </table>
     </div>
     <script>
-        
+
         let tableBody = document.getElementById("displayvalue");
-        
+
         let responsevalue = "";
-         if (localStorage.getItem('responsekey')) {
+        if (localStorage.getItem('responsekey')) {
             responsevalue = JSON.parse(localStorage.getItem('responsekey'));
-          
-            for (let i=0;  i<responsevalue.length;i++) {
+
+            for (let i = 0; i < responsevalue.length; i++) {
                 let row = document.createElement('tr')
                 let id = document.createElement('td')
                 id.textContent = responsevalue[i].id;
-              
+
                 id.addEventListener('input', function () {
-                    let a=event.target;
-                    let r=a.closest('tr')
-                    let ind=Array.from(tableBody.children).indexOf(r);
+                    let a = event.target;
+                    let r = a.closest('tr')
+                    let ind = Array.from(tableBody.children).indexOf(r);
                     responsevalue[ind].id = id.textContent;
                     updateLocalStorage(responsevalue);
                 });
                 let title = document.createElement('td')
                 title.textContent = responsevalue[i].title;
-                
+
                 title.addEventListener('input', function () {
-                    let a=event.target;
-                    let r=a.closest('tr')
-                    let ind=Array.from(tableBody.children).indexOf(r);
+                    let a = event.target;
+                    let r = a.closest('tr')
+                    let ind = Array.from(tableBody.children).indexOf(r);
                     responsevalue[indl].title = title.textContent;
                     updateLocalStorage(responsevalue);
                 });
                 let status = document.createElement('td')
                 status.textContent = responsevalue[i].completed;
-                
+
                 status.addEventListener('input', function () {
-                    let a=event.target;
-                    let r=a.closest('tr')
-                    let ind=Array.from(tableBody.children).indexOf(r);
+                    let a = event.target;
+                    let r = a.closest('tr')
+                    let ind = Array.from(tableBody.children).indexOf(r);
                     responsevalue[ind].completed = status.textContent;
                     updateLocalStorage(responsevalue);
                 });
-                let editbutton =document.createElement('button');
-                editbutton.textContent="Edit";
-                editbutton.className="editbutton";
+                let editbutton = document.createElement('button');
+                editbutton.textContent = "Edit";
+                editbutton.className = "editbutton";
 
-                editbutton.addEventListener('click', function() {
-                    id.setAttribute('contenteditable', 'true');
+                editbutton.addEventListener('click', function () {
+                    // id.setAttribute('contenteditable', 'true');
                     title.setAttribute('contenteditable', 'true');
                     status.setAttribute('contenteditable', 'true');
                     row.style.border = ' solid ';
                 })
 
 
-                let deletebutton =document.createElement('button');
-                deletebutton.textContent="Delete";
-                deletebutton.className="deletebutton";
+                let deletebutton = document.createElement('button');
+                deletebutton.textContent = "Delete";
+                deletebutton.className = "deletebutton";
 
-                deletebutton.addEventListener('click', function(event) {
-                    let a=event.target;
-                    let r=a.closest('tr')
-                    let ind=Array.from(tableBody.children).indexOf(r);
-                     responsevalue.splice(ind,1);
-                   updateLocalStorage(responsevalue);
+                deletebutton.addEventListener('click', function (event) {
+                    let a = event.target;
+                    let r = a.closest('tr')
+                    let ind = Array.from(tableBody.children).indexOf(r);
+                    responsevalue.splice(ind, 1);
+                    updateLocalStorage(responsevalue);
                     row.remove();
                 })
-                
-                let br =document.createElement('br');
-                let br1 =document.createElement('br');
-                let buttons=document.createElement('td');
 
- 
+                let br = document.createElement('br');
+                let br1 = document.createElement('br');
+                let buttons = document.createElement('td');
+                editbutton.style.marginRight = '10px'
                 row.appendChild(id);
                 row.appendChild(title);
                 row.appendChild(status);
                 buttons.appendChild(editbutton);
-                buttons.appendChild(br);
-                buttons.appendChild(br1);
                 buttons.appendChild(deletebutton)
                 row.appendChild(buttons);
 
@@ -114,13 +111,13 @@
             function updateLocalStorage(data) {
                 localStorage.setItem('responsekey', JSON.stringify(data));
             }
-            
+
         }
-    
-       
+
+
         function clear1() {
-            document.getElementById("displayvalue").style.display="none";
-            document.getElementById("empty").style.display="block";
+            document.getElementById("displayvalue").style.display = "none";
+            document.getElementById("empty").style.display = "block";
             responsevalue = "";
             localStorage.clear();
             loaddata();
