@@ -17,7 +17,8 @@
     </div>
     </div>
     <div class="tablediv">
-    <table  onload="loaddata()">
+        <img src="empty.png" id="empty">
+    <table >
         <tr >
            
             <th>ID</th>
@@ -35,27 +36,37 @@
         let responsevalue = "";
          if (localStorage.getItem('responsekey')) {
             responsevalue = JSON.parse(localStorage.getItem('responsekey'));
+          
             for (let i=0;  i<responsevalue.length;i++) {
                 let row = document.createElement('tr')
                 let id = document.createElement('td')
                 id.textContent = responsevalue[i].id;
               
                 id.addEventListener('input', function () {
-                    responsevalue[i].id = id.textContent;
+                    let a=event.target;
+                    let r=a.closest('tr')
+                    let ind=Array.from(tableBody.children).indexOf(r);
+                    responsevalue[ind].id = id.textContent;
                     updateLocalStorage(responsevalue);
                 });
                 let title = document.createElement('td')
                 title.textContent = responsevalue[i].title;
                 
                 title.addEventListener('input', function () {
-                    responsevalue[i].title = title.textContent;
+                    let a=event.target;
+                    let r=a.closest('tr')
+                    let ind=Array.from(tableBody.children).indexOf(r);
+                    responsevalue[indl].title = title.textContent;
                     updateLocalStorage(responsevalue);
                 });
                 let status = document.createElement('td')
                 status.textContent = responsevalue[i].completed;
                 
                 status.addEventListener('input', function () {
-                    responsevalue[i].completed = status.textContent;
+                    let a=event.target;
+                    let r=a.closest('tr')
+                    let ind=Array.from(tableBody.children).indexOf(r);
+                    responsevalue[ind].completed = status.textContent;
                     updateLocalStorage(responsevalue);
                 });
                 let editbutton =document.createElement('button');
@@ -74,10 +85,13 @@
                 deletebutton.textContent="Delete";
                 deletebutton.className="deletebutton";
 
-                deletebutton.addEventListener('click', function() {
+                deletebutton.addEventListener('click', function(event) {
+                    let a=event.target;
+                    let r=a.closest('tr')
+                    let ind=Array.from(tableBody.children).indexOf(r);
+                     responsevalue.splice(ind,1);
+                   updateLocalStorage(responsevalue);
                     row.remove();
-                    responsevalue.splice(i,1);
-                    updateLocalStorage(responsevalue);
                 })
                 
                 let br =document.createElement('br');
@@ -101,12 +115,16 @@
                 localStorage.setItem('responsekey', JSON.stringify(data));
             }
             
-         }
+        }
+    
+       
         function clear1() {
             document.getElementById("displayvalue").style.display="none";
+            document.getElementById("empty").style.display="block";
             responsevalue = "";
             localStorage.clear();
             loaddata();
+
         }
 
     </script>
