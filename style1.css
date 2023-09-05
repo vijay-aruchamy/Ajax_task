@@ -1,3 +1,6 @@
+body{
+    overflow: hidden;
+}
 table {
     border-collapse: collapse;
     background-color: rgba(25, 172, 235, 0.263);
@@ -17,8 +20,6 @@ h2 {
 
     margin: 0;
 }
-
-th {}
 
 .heading {
     padding-top: 15px;
@@ -41,6 +42,12 @@ th {
     padding: 8px;
     text-align: center;
 }
+
+#displayvalue
+{
+    overflow-y: scroll;
+}
+
 
 .clrbutton {
     height: max-content;
