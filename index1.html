@@ -12,7 +12,9 @@
 <body >
     <div class="heading">
     <h2 style="color:  rgb(12, 78, 116);">Employee Details</h2>
+    <div style="float: right;">
     <button class="clrbutton" onclick="clear1()">Clear</button>
+    </div>
     </div>
     <div class="tablediv">
     <table  onload="loaddata()">
@@ -25,44 +27,58 @@
         </tr>
         <tbody id="displayvalue" ></tbody>
     </table>
-     <\
+    </div>
     <script>
-        loaddata();
+        
         let tableBody = document.getElementById("displayvalue");
         
         let responsevalue = "";
          if (localStorage.getItem('responsekey')) {
             responsevalue = JSON.parse(localStorage.getItem('responsekey'));
-            for (let item of responsevalue) {
+            for (let i=0;  i<responsevalue.length;i++) {
                 let row = document.createElement('tr')
                 let id = document.createElement('td')
-                id.textContent = item.id;
-                id.setAttribute('contenteditable', 'true');
+                id.textContent = responsevalue[i].id;
+              
                 id.addEventListener('input', function () {
-                    item.id = id.textContent;
+                    responsevalue[i].id = id.textContent;
                     updateLocalStorage(responsevalue);
                 });
                 let title = document.createElement('td')
-                title.textContent = item.title;
-                title.setAttribute('contenteditable', 'true');
+                title.textContent = responsevalue[i].title;
+                
                 title.addEventListener('input', function () {
-                    item.title = title.textContent;
+                    responsevalue[i].title = title.textContent;
                     updateLocalStorage(responsevalue);
                 });
                 let status = document.createElement('td')
-                status.textContent = item.completed;
-                status.setAttribute('contenteditable', 'true');
+                status.textContent = responsevalue[i].completed;
+                
                 status.addEventListener('input', function () {
-                    item.completed = status.textContent;
+                    responsevalue[i].completed = status.textContent;
                     updateLocalStorage(responsevalue);
                 });
                 let editbutton =document.createElement('button');
                 editbutton.textContent="Edit";
                 editbutton.className="editbutton";
 
+                editbutton.addEventListener('click', function() {
+                    id.setAttribute('contenteditable', 'true');
+                    title.setAttribute('contenteditable', 'true');
+                    status.setAttribute('contenteditable', 'true');
+                    row.style.border = ' solid ';
+                })
+
+
                 let deletebutton =document.createElement('button');
                 deletebutton.textContent="Delete";
                 deletebutton.className="deletebutton";
+
+                deletebutton.addEventListener('click', function() {
+                    row.remove();
+                    responsevalue.splice(i,1);
+                    updateLocalStorage(responsevalue);
+                })
                 
                 let br =document.createElement('br');
                 let br1 =document.createElement('br');
@@ -83,14 +99,14 @@
             }
             function updateLocalStorage(data) {
                 localStorage.setItem('responsekey', JSON.stringify(data));
-                console.log(responsevalue);
             }
             
          }
         function clear1() {
-            localStorage.clear();
-            responsevalue = "";
             document.getElementById("displayvalue").style.display="none";
+            responsevalue = "";
+            localStorage.clear();
+            loaddata();
         }
 
     </script>
