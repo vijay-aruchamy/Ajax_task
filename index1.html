@@ -20,8 +20,7 @@
         <img src="empty.png" id="empty">
         <table>
             <thead>
-
-                <th>ID</th>
+                 <th>ID</th>
                 <th>Title</th>
                 <th>Status</th>
                 <th>Changes</th>
@@ -69,15 +68,30 @@
                     responsevalue[ind].completed = status.textContent;
                     updateLocalStorage(responsevalue);
                 });
+
+
                 let editbutton = document.createElement('button');
                 editbutton.textContent = "Edit";
                 editbutton.className = "editbutton";
 
                 editbutton.addEventListener('click', function () {
-                 
+                    console.log(editbutton.textContent);
+                    if(editbutton.innerText==='Edit')
+                    {
+                    editbutton.textContent='Save'
                     title.setAttribute('contenteditable', 'true');
                     status.setAttribute('contenteditable', 'true');
-                    row.style.border = ' solid ';
+                    row.style.border = ' solid';
+                    }
+                   else 
+                    {
+                        console.log('helooo')
+                        editbutton.textContent='Edit'
+                        title.setAttribute('contenteditable', 'false');
+                       status.setAttribute('contenteditable', 'false');
+                         row.style.border='none';
+                    }
+                  
                 })
 
 
