@@ -36,7 +36,6 @@ thead {
     color: white;
     position: sticky; 
     top: 0;
-
     
     
 }
@@ -53,7 +52,7 @@ th {
 
     overflow-y: scroll;
     height: 700px;
-    display:block
+
 
 
     
