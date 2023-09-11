@@ -1,25 +1,27 @@
-body{
-    overflow: hidden; 
+body {
+    overflow: hidden;
 }
+
 table {
     border-collapse: collapse;
     background-color: rgba(25, 172, 235, 0.263);
     font-family: Arial, Helvetica, sans-serif;
-    
-  
+
+
 }
 
-#tableWrapper
-{
-    overflow-y: scroll;
+#tableWrapper {
+    overflow-y: auto;
     max-height: 500px;
+    align-items: center;
 }
 
 .tablediv {
     display: flex;
     flex-direction: column;
     align-items: center;
-   
+    width: 100%;
+
 }
 
 h2 {
@@ -33,7 +35,7 @@ h2 {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    flex-direction: row; 
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     text-align: center;
@@ -44,10 +46,11 @@ h2 {
 thead {
     background-color: rgb(12, 78, 116);
     color: white;
-    position: sticky; 
+    position: sticky;
     top: 0;
-    
-    
+
+
+
 }
 
 td,
@@ -57,18 +60,18 @@ th {
     text-align: center;
 }
 
-#displayvalue
-{
+#displayvalue {
 
     overflow-y: scroll;
     height: 700px;
-    
+
 }
-#counttable
-{
+
+#counttable {
     font-size: large;
-    color:  rgb(12, 78, 116);
+    color: rgb(12, 78, 116);
 }
+
 .clrbutton {
     height: max-content;
     background-color: #1e9ad2;
@@ -88,6 +91,16 @@ th {
     padding-bottom: 5px;
 }
 
+.cancelbutton {
+    background-color: #1e9ad2;
+    border-color: #ddd;
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: none;
+}
+
 .deletebutton {
     background-color: #1e9ad2;
     border-color: #ddd;
@@ -99,4 +112,21 @@ th {
 
 #empty {
     display: none;
+}
+
+#deletepopup
+{
+    text-align: center;
+    height: 146px;
+    width: 336px;
+    border: 1px solid;
+    position: absolute;
+    z-index: 1;
+    margin-left: 500px;
+    display: none;
+    background-color: #1e9ad2;
+}
+button
+{
+    background-color: rgb(12, 78, 116);
 }

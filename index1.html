@@ -10,24 +10,32 @@
 </head>
 
 <body>
+    <div id="deletepopup">
+        <p>Do You Want To Delete ?</p>
+        <div class="optionbuttons">
+            <button onclick="deleterow()">Yes</button>
+            <button onclick="notdeleterow()">No</button>
+        </div>
+    </div>
     <div class="heading">
         <h2 style="color:  rgb(12, 78, 116);">Employee Details</h2>
-        <span id="counttable" >Count: 200</span>
-        <div >
+        <span id="counttable">Count: 200</span>
+        <div>
             <button class="clrbutton" onclick="clear1()">Clear</button>
         </div>
+        <button class="clrbutton" onclick="logout()">Log out</button>
     </div>
     <div class="tablediv">
         <div id="tableWrapper">
-        <table>
-            <thead>
-                 <th>ID</th>
-                <th>Title</th>
-                <th>Status</th>
-                <th>Changes</th>
-            </thead>
-            <tbody id="displayvalue"></tbody>
-        </table>
+            <table>
+                <thead>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Changes</th>
+                </thead>
+                <tbody id="displayvalue"></tbody>
+            </table>
         </div>
         <img src="empty.png" id="empty">
     </div>
@@ -37,9 +45,14 @@
 
         let responsevalue = "";
         if (localStorage.getItem('responsekey')) {
-
+            let a;
+            let titlea;
+            let statusa;
+            let titleind;
+            let statusind;
+            
             responsevalue = JSON.parse(localStorage.getItem('responsekey'));
-            document.getElementById('counttable').innerHTML=`count: ${responsevalue.length}`;
+            document.getElementById('counttable').innerHTML = `count: ${responsevalue.length}`;
             for (let i = 0; i < responsevalue.length; i++) {
                 let row = document.createElement('tr')
                 let id = document.createElement('td')
@@ -50,28 +63,27 @@
                     let r = a.closest('tr')
                     let ind = Array.from(tableBody.children).indexOf(r);
                     responsevalue[ind].id = id.textContent;
-                  
+        
                 });
                 let title = document.createElement('td')
                 title.textContent = responsevalue[i].title;
 
                 title.addEventListener('input', function () {
-                    let a = event.target;
-                    let r = a.closest('tr')
-                    let ind = Array.from(tableBody.children).indexOf(r);
-                    responsevalue[ind].title = title.textContent;
-                    
+                     titlea = event.target.closest('tr')
+                     titleind = Array.from(tableBody.children).indexOf(titlea);
+                    console.log(titleind)
+                   
+
                 });
                 let status = document.createElement('td')
                 status.textContent = responsevalue[i].completed;
 
                 status.addEventListener('input', function () {
-                    let a = event.target;
-                    let r = a.closest('tr')
-                    let ind = Array.from(tableBody.children).indexOf(r);
-                    responsevalue[ind].completed = status.textContent;
-                   
+                    statusa = event.target.closest('tr')
+                     statusind = Array.from(tableBody.children).indexOf(statusa);
+                    
                 });
+            
 
 
                 let editbutton = document.createElement('button');
@@ -79,46 +91,85 @@
                 editbutton.className = "editbutton";
 
                 editbutton.addEventListener('click', function () {
-                    if(editbutton.innerText==='Edit')
-                    {
-                    editbutton.textContent='Save'
-                    title.setAttribute('contenteditable', 'true');
-                    status.setAttribute('contenteditable', 'true');
-                    row.style.border = ' solid';
+                    if (editbutton.innerText === 'Edit') {
+                        editbutton.textContent = 'Save'
+                        title.setAttribute('contenteditable', 'true');
+                        status.setAttribute('contenteditable', 'true');
+                        row.style.border = ' solid';
+                        deletebutton.style.display = 'none';
+                        cancelbutton.style.display = 'block';
                     }
-                   else 
-                     {
-                        editbutton.textContent='Edit'
+                    else {
+                        editbutton.textContent = 'Edit'
+                        if(statusind<=0)
+                        responsevalue[statusind].completed = status.textContent;
+                        if(titleind<=0)
+                        responsevalue[titleind].id = title.textContent;
                         title.setAttribute('contenteditable', 'false');
-                       status.setAttribute('contenteditable', 'false');
-                         row.style.border='none';
-                         updateLocalStorage(responsevalue);
+                        status.setAttribute('contenteditable', 'false');
+                        row.style.border = 'none';
+                        updateLocalStorage(responsevalue);
+                        deletebutton.style.display = 'block';
+                        cancelbutton.style.display = 'none';
                     }
-                  
+
                 })
 
+                let cancelbutton = document.createElement('button');
+                cancelbutton.textContent = "Cancel";
+                cancelbutton.className = "cancelbutton";
+
+                cancelbutton.addEventListener('click', function () {
+
+                    title.setAttribute('contenteditable', 'false');
+                    status.setAttribute('contenteditable', 'false');
+                    row.style.border = 'none';
+                    cancelbutton.style.display = "none";
+                    deletebutton.style.display = 'block';
+                    editbutton.textContent = 'Edit';
+                    
+                    if(statusind<=0)
+                    {
+                    status.textContent = responsevalue[statusind].completed;
+                    }
+                    if(titleind<=0)
+                    title.textContent = responsevalue[titleind].title;
+                })
 
                 let deletebutton = document.createElement('button');
                 deletebutton.textContent = "Delete";
                 deletebutton.className = "deletebutton";
-
+               
                 deletebutton.addEventListener('click', function (event) {
-                    let a = event.target;
-                    let r = a.closest('tr')
-                    let ind = Array.from(tableBody.children).indexOf(r);
+                    document.getElementById("deletepopup").style.display='block';
+                    a=event.target.closest('tr');
+                   
+                })
+
+                function deleterow()
+                {
+                  let ind = Array.from(tableBody.children).indexOf(a);
+                    a.remove();
+                    console.log(ind);
                     responsevalue.splice(ind, 1);
                     updateLocalStorage(responsevalue);
-                    row.remove();
-                })
+                    document.getElementById("deletepopup").style.display='none';
+                }
+                function notdeleterow()
+                {
+                    document.getElementById("deletepopup").style.display='none';
+                }
 
                 let br = document.createElement('br');
                 let br1 = document.createElement('br');
                 let buttons = document.createElement('td');
+                buttons.style.display = 'flex';
                 editbutton.style.marginRight = '10px'
                 row.appendChild(id);
                 row.appendChild(title);
                 row.appendChild(status);
                 buttons.appendChild(editbutton);
+                buttons.appendChild(cancelbutton);
                 buttons.appendChild(deletebutton)
                 row.appendChild(buttons);
 
@@ -126,22 +177,33 @@
                 tableBody.appendChild(row);
             }
             function updateLocalStorage(data) {
-                document.getElementById('counttable').innerHTML=`count: ${responsevalue.length}`;
+                document.getElementById('counttable').innerHTML = `count: ${responsevalue.length}`;
                 localStorage.setItem('responsekey', JSON.stringify(data));
             }
 
+        
         }
-
 
         function clear1() {
             document.getElementById("displayvalue").style.display = "none";
             document.getElementById("empty").style.display = "block";
             responsevalue = "";
-            document.getElementById('counttable').innerHTML=`count: ${responsevalue.length}`;
+            document.getElementById('counttable').innerHTML = `count: ${responsevalue.length}`;
             localStorage.clear();
             loaddata();
 
         }
+        function logout() {
+            window.location.href = "index.html";
+        }
+
+        function preventBack() {
+            window.history.forward(); 
+        }
+          
+        setTimeout("preventBack()", 0);
+          
+        window.onunload = function () { null };
 
     </script>
 </body>
