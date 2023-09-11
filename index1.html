@@ -12,12 +12,12 @@
 <body>
     <div class="heading">
         <h2 style="color:  rgb(12, 78, 116);">Employee Details</h2>
-        <div style="float: right;">
+        <span id="counttable" >Count: 200</span>
+        <div >
             <button class="clrbutton" onclick="clear1()">Clear</button>
         </div>
     </div>
     <div class="tablediv">
-        <img src="empty.png" id="empty">
         <div id="tableWrapper">
         <table>
             <thead>
@@ -29,6 +29,7 @@
             <tbody id="displayvalue"></tbody>
         </table>
         </div>
+        <img src="empty.png" id="empty">
     </div>
     <script>
 
@@ -36,8 +37,9 @@
 
         let responsevalue = "";
         if (localStorage.getItem('responsekey')) {
-            responsevalue = JSON.parse(localStorage.getItem('responsekey'));
 
+            responsevalue = JSON.parse(localStorage.getItem('responsekey'));
+            document.getElementById('counttable').innerHTML=`count: ${responsevalue.length}`;
             for (let i = 0; i < responsevalue.length; i++) {
                 let row = document.createElement('tr')
                 let id = document.createElement('td')
@@ -77,7 +79,6 @@
                 editbutton.className = "editbutton";
 
                 editbutton.addEventListener('click', function () {
-                    console.log(editbutton.textContent);
                     if(editbutton.innerText==='Edit')
                     {
                     editbutton.textContent='Save'
@@ -86,8 +87,7 @@
                     row.style.border = ' solid';
                     }
                    else 
-                    {
-                        console.log('helooo')
+                     {
                         editbutton.textContent='Edit'
                         title.setAttribute('contenteditable', 'false');
                        status.setAttribute('contenteditable', 'false');
@@ -126,6 +126,7 @@
                 tableBody.appendChild(row);
             }
             function updateLocalStorage(data) {
+                document.getElementById('counttable').innerHTML=`count: ${responsevalue.length}`;
                 localStorage.setItem('responsekey', JSON.stringify(data));
             }
 
@@ -136,6 +137,7 @@
             document.getElementById("displayvalue").style.display = "none";
             document.getElementById("empty").style.display = "block";
             responsevalue = "";
+            document.getElementById('counttable').innerHTML=`count: ${responsevalue.length}`;
             localStorage.clear();
             loaddata();
 

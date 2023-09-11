@@ -5,8 +5,14 @@ table {
     border-collapse: collapse;
     background-color: rgba(25, 172, 235, 0.263);
     font-family: Arial, Helvetica, sans-serif;
-    width: 80%;
+    
   
+}
+
+#tableWrapper
+{
+    overflow-y: scroll;
+    max-height: 500px;
 }
 
 .tablediv {
@@ -14,10 +20,6 @@ table {
     flex-direction: column;
     align-items: center;
    
-}
-#tableWrapper
-{
-    
 }
 
 h2 {
@@ -30,8 +32,12 @@ h2 {
     padding-bottom: 15px;
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 10px;
+    flex-direction: row; 
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+
 }
 
 
@@ -55,19 +61,18 @@ th {
 {
 
     overflow-y: scroll;
-    
-
-
-
+    height: 700px;
     
 }
-
-
+#counttable
+{
+    font-size: large;
+    color:  rgb(12, 78, 116);
+}
 .clrbutton {
     height: max-content;
     background-color: #1e9ad2;
     border-color: #ddd;
-    margin-left: 900px;
     padding-right: 15px;
     padding-left: 15px;
     padding-top: 5px;

@@ -70,14 +70,12 @@
 
         function getname(event) {
             details.name = event.target.value;
-            console.log("enteringg")
         }
         function getemail(event) {
             details.email1 = event.target.value;
         }
         function getpass(event) {
             details.password1 = event.target.value;
-            console.log("hellooooooooooo");
         }
 
         let warning = document.getElementById("warning");
@@ -94,7 +92,6 @@
 
         function Validate(event) {
             event.preventDefault();
-            console.log(details.name);
             let condition = true;
             if (details.name == "") {
                 Usernone.style.display = "block";

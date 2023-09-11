@@ -17,7 +17,9 @@ input {
     border-bottom: 1px solid;
     border-color: lightgray;
     width: 300px;
-
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: medium;
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -291,8 +293,6 @@ form {
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
-    width: fit-content;
-    height: 45px;
 
 }
 
