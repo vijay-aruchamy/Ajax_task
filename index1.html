@@ -101,10 +101,10 @@
                     }
                     else {
                         editbutton.textContent = 'Edit'
-                        if(statusind<=0)
+                        if(statusind>=0)
                         responsevalue[statusind].completed = status.textContent;
-                        if(titleind<=0)
-                        responsevalue[titleind].id = title.textContent;
+                        if(titleind>=0)
+                        responsevalue[titleind].title= title.textContent;
                         title.setAttribute('contenteditable', 'false');
                         status.setAttribute('contenteditable', 'false');
                         row.style.border = 'none';
@@ -128,11 +128,11 @@
                     deletebutton.style.display = 'block';
                     editbutton.textContent = 'Edit';
                     
-                    if(statusind<=0)
+                    if(statusind>=0)
                     {
                     status.textContent = responsevalue[statusind].completed;
                     }
-                    if(titleind<=0)
+                    if(titleind>=0)
                     title.textContent = responsevalue[titleind].title;
                 })
 
@@ -194,6 +194,7 @@
 
         }
         function logout() {
+            localStorage.clear();
             window.location.href = "index.html";
         }
 
