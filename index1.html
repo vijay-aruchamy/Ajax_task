@@ -28,12 +28,13 @@
     <div class="tablediv">
         <div id="tableWrapper">
             <table>
-                <thead>
+                <thead id="tablehead">
                     <th>ID</th>
                     <th>Title</th>
                     <th>Status</th>
                     <th>Changes</th>
                 </thead>
+
                 <tbody id="displayvalue"></tbody>
             </table>
         </div>
@@ -41,148 +42,164 @@
     </div>
     <script>
 
-        let tableBody = document.getElementById("displayvalue");
 
+        document.addEventListener('DOMContentLoaded', () => {
+
+            if (!localStorage.getItem('responsekey')) {
+                loaddata()
+                    .then(data => {
+
+                        localStorage.setItem('responsekey', JSON.stringify(data))
+                        tablecreate();
+
+                    })
+            }
+            else
+                tablecreate()
+        });
+        let tableBody;
+        let a;
+        let titlea;
+        let statusa;
+        let titleind;
+        let statusind;
         let responsevalue = "";
-        if (localStorage.getItem('responsekey')) {
-            let a;
-            let titlea;
-            let statusa;
-            let titleind;
-            let statusind;
-            
-            responsevalue = JSON.parse(localStorage.getItem('responsekey'));
-            document.getElementById('counttable').innerHTML = `count: ${responsevalue.length}`;
-            for (let i = 0; i < responsevalue.length; i++) {
-                let row = document.createElement('tr')
-                let id = document.createElement('td')
-                id.textContent = responsevalue[i].id;
-
-                id.addEventListener('input', function () {
-                    let a = event.target;
-                    let r = a.closest('tr')
-                    let ind = Array.from(tableBody.children).indexOf(r);
-                    responsevalue[ind].id = id.textContent;
-        
-                });
-                let title = document.createElement('td')
-                title.textContent = responsevalue[i].title;
-
-                title.addEventListener('input', function () {
-                     titlea = event.target.closest('tr')
-                     titleind = Array.from(tableBody.children).indexOf(titlea);
-                    console.log(titleind)
-                   
-
-                });
-                let status = document.createElement('td')
-                status.textContent = responsevalue[i].completed;
-
-                status.addEventListener('input', function () {
-                    statusa = event.target.closest('tr')
-                     statusind = Array.from(tableBody.children).indexOf(statusa);
-                    
-                });
-            
 
 
-                let editbutton = document.createElement('button');
-                editbutton.textContent = "Edit";
-                editbutton.className = "editbutton";
+        function tablecreate() {
+            if (!localStorage.getItem('responsekey') == "") {
 
-                editbutton.addEventListener('click', function () {
-                    if (editbutton.innerText === 'Edit') {
-                        editbutton.textContent = 'Save'
-                        title.setAttribute('contenteditable', 'true');
-                        status.setAttribute('contenteditable', 'true');
-                        row.style.border = ' solid';
-                        deletebutton.style.display = 'none';
-                        cancelbutton.style.display = 'block';
-                    }
-                    else {
-                        editbutton.textContent = 'Edit'
-                        if(statusind>=0)
-                        responsevalue[statusind].completed = status.textContent;
-                        if(titleind>=0)
-                        responsevalue[titleind].title= title.textContent;
+                tableBody = document.getElementById("displayvalue");
+                responsevalue = JSON.parse(localStorage.getItem('responsekey'));
+                document.getElementById('counttable').innerHTML = `count: ${responsevalue.length}`;
+                for (let i = 0; i < responsevalue.length; i++) {
+                    let row = document.createElement('tr')
+                    let id = document.createElement('td')
+                    id.textContent = responsevalue[i].id;
+
+                    id.addEventListener('input', function () {
+                        let a = event.target;
+                        let r = a.closest('tr')
+                        let ind = Array.from(tableBody.children).indexOf(r);
+                        responsevalue[ind].id = id.textContent;
+
+                    });
+                    let title = document.createElement('td')
+                    title.textContent = responsevalue[i].title;
+
+                    title.addEventListener('input', function () {
+                        titlea = event.target.closest('tr')
+                        titleind = Array.from(tableBody.children).indexOf(titlea);
+                        console.log(titleind)
+
+
+                    });
+                    let status = document.createElement('td')
+                    status.textContent = responsevalue[i].completed;
+
+                    status.addEventListener('input', function () {
+                        statusa = event.target.closest('tr')
+                        statusind = Array.from(tableBody.children).indexOf(statusa);
+
+                    });
+
+
+
+                    let editbutton = document.createElement('button');
+                    editbutton.textContent = "Edit";
+                    editbutton.className = "editbutton";
+
+                    editbutton.addEventListener('click', function () {
+                        if (editbutton.innerText === 'Edit') {
+                            editbutton.textContent = 'Save'
+                            title.setAttribute('contenteditable', 'true');
+                            status.setAttribute('contenteditable', 'true');
+                            row.style.border = ' solid';
+                            deletebutton.style.display = 'none';
+                            cancelbutton.style.display = 'block';
+                        }
+                        else {
+                            editbutton.textContent = 'Edit'
+                            if (statusind >= 0)
+                                responsevalue[statusind].completed = status.textContent;
+                            if (titleind >= 0)
+                                responsevalue[titleind].title = title.textContent;
+                            title.setAttribute('contenteditable', 'false');
+                            status.setAttribute('contenteditable', 'false');
+                            row.style.border = 'none';
+                            updateLocalStorage(responsevalue);
+                            deletebutton.style.display = 'block';
+                            cancelbutton.style.display = 'none';
+                        }
+
+                    })
+
+                    let cancelbutton = document.createElement('button');
+                    cancelbutton.textContent = "Cancel";
+                    cancelbutton.className = "cancelbutton";
+
+                    cancelbutton.addEventListener('click', function () {
+
                         title.setAttribute('contenteditable', 'false');
                         status.setAttribute('contenteditable', 'false');
                         row.style.border = 'none';
-                        updateLocalStorage(responsevalue);
+                        cancelbutton.style.display = "none";
                         deletebutton.style.display = 'block';
-                        cancelbutton.style.display = 'none';
-                    }
+                        editbutton.textContent = 'Edit';
 
-                })
+                        if (statusind >= 0) {
+                            status.textContent = responsevalue[statusind].completed;
+                        }
+                        if (titleind >= 0)
+                            title.textContent = responsevalue[titleind].title;
+                    })
 
-                let cancelbutton = document.createElement('button');
-                cancelbutton.textContent = "Cancel";
-                cancelbutton.className = "cancelbutton";
+                    let deletebutton = document.createElement('button');
+                    deletebutton.textContent = "Delete";
+                    deletebutton.className = "deletebutton";
 
-                cancelbutton.addEventListener('click', function () {
+                    deletebutton.addEventListener('click', function (event) {
+                        document.getElementById("deletepopup").style.display = 'block';
+                        a = event.target.closest('tr');
 
-                    title.setAttribute('contenteditable', 'false');
-                    status.setAttribute('contenteditable', 'false');
-                    row.style.border = 'none';
-                    cancelbutton.style.display = "none";
-                    deletebutton.style.display = 'block';
-                    editbutton.textContent = 'Edit';
-                    
-                    if(statusind>=0)
-                    {
-                    status.textContent = responsevalue[statusind].completed;
-                    }
-                    if(titleind>=0)
-                    title.textContent = responsevalue[titleind].title;
-                })
+                    })
 
-                let deletebutton = document.createElement('button');
-                deletebutton.textContent = "Delete";
-                deletebutton.className = "deletebutton";
-               
-                deletebutton.addEventListener('click', function (event) {
-                    document.getElementById("deletepopup").style.display='block';
-                    a=event.target.closest('tr');
-                   
-                })
 
-                function deleterow()
-                {
-                  let ind = Array.from(tableBody.children).indexOf(a);
-                    a.remove();
-                    console.log(ind);
-                    responsevalue.splice(ind, 1);
-                    updateLocalStorage(responsevalue);
-                    document.getElementById("deletepopup").style.display='none';
+                    let br = document.createElement('br');
+                    let br1 = document.createElement('br');
+                    let buttons = document.createElement('td');
+                    buttons.style.display = 'flex';
+                    editbutton.style.marginRight = '10px'
+                    row.appendChild(id);
+                    row.appendChild(title);
+                    row.appendChild(status);
+                    buttons.appendChild(editbutton);
+                    buttons.appendChild(cancelbutton);
+                    buttons.appendChild(deletebutton)
+                    row.appendChild(buttons);
+                    tableBody.appendChild(row);
                 }
-                function notdeleterow()
-                {
-                    document.getElementById("deletepopup").style.display='none';
-                }
-
-                let br = document.createElement('br');
-                let br1 = document.createElement('br');
-                let buttons = document.createElement('td');
-                buttons.style.display = 'flex';
-                editbutton.style.marginRight = '10px'
-                row.appendChild(id);
-                row.appendChild(title);
-                row.appendChild(status);
-                buttons.appendChild(editbutton);
-                buttons.appendChild(cancelbutton);
-                buttons.appendChild(deletebutton)
-                row.appendChild(buttons);
-
-
-                tableBody.appendChild(row);
             }
-            function updateLocalStorage(data) {
-                document.getElementById('counttable').innerHTML = `count: ${responsevalue.length}`;
-                localStorage.setItem('responsekey', JSON.stringify(data));
-            }
-
-        
         }
+
+
+        function deleterow() {
+            let ind = Array.from(tableBody.children).indexOf(a);
+            a.remove();
+            console.log(ind);
+            responsevalue.splice(ind, 1);
+            updateLocalStorage(responsevalue);
+            document.getElementById("deletepopup").style.display = 'none';
+        }
+        function notdeleterow() {
+            document.getElementById("deletepopup").style.display = 'none';
+        }
+
+        function updateLocalStorage(data) {
+            document.getElementById('counttable').innerHTML = `count: ${responsevalue.length}`;
+            localStorage.setItem('responsekey', JSON.stringify(data));
+        }
+
 
         function clear1() {
             document.getElementById("displayvalue").style.display = "none";
@@ -199,11 +216,11 @@
         }
 
         function preventBack() {
-            window.history.forward(); 
+            window.history.forward();
         }
-          
+
         setTimeout("preventBack()", 0);
-          
+
         window.onunload = function () { null };
 
     </script>

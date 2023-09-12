@@ -51,8 +51,6 @@ thead {
     position: sticky;
     top: 0;
 
-
-
 }
 
 td,
@@ -60,7 +58,7 @@ th {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
-    max-width: 200px;
+
 }
 
 #displayvalue {
@@ -117,8 +115,7 @@ th {
     display: none;
 }
 
-#deletepopup
-{
+#deletepopup {
     text-align: center;
     height: 146px;
     width: 336px;
@@ -129,7 +126,7 @@ th {
     display: none;
     background-color: #1e9ad2;
 }
-button
-{
+
+button {
     background-color: rgb(12, 78, 116);
 }
